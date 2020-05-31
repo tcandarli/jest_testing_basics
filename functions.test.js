@@ -1,5 +1,33 @@
 const  functions = require('./functions');
 
+const initDatabase = () => console.log('Database Initialized...');
+const closeDatabase = () => console.log('Database Closed...');
+
+// beforeEach, afterEach
+// beforeEach(() => initDatabase());
+// afterEach(() => closeDatabase());
+
+beforeAll(() => initDatabase());
+afterAll(() => closeDatabase());
+
+const nameCheck = () => console.log('Checking name...');
+
+describe('Checking names', () => {
+    beforeEach(() => nameCheck());
+
+    test('User is Mike', () => {
+        const user = 'Mike';
+        expect(user).toBe('Mike');
+
+    });
+
+    test('User is John', () => {
+        const user = 'John';
+        expect(user).toBe('John');
+
+    });
+});
+
 // toBe
 test('Adds 2 + 2 to equal 4', () => {
     expect(functions.add(2, 2)).toBe(4);
@@ -40,4 +68,22 @@ test('There is no b in hicoders', () => {
 test('Admin should be in usernames', () => {
     usernames = ['user1', 'admin', 'mike'];
     expect(usernames).toContain('admin');
+})
+
+// Working with async data
+
+// // Promise 
+// test('User fetched name should be Leanne Graham', () => {
+//     expect.assertions(1);
+//     return functions.fetchUser().then(data => {
+//             expect(data.name).toEqual('Leanne Graham');
+//         })
+// })
+
+// Async Await 
+test('User fetched name should be Leanne Graham with async await', async () => {
+    expect.assertions(1);
+    const data = await functions.fetchUser().then(data => {
+            expect(data.name).toEqual('Leanne Graham');
+        })
 })
